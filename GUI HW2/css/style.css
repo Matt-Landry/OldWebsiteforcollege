@@ -1,0 +1,40 @@
+/*
+a. Matthew Landry
+b. Matthew_Landry@student.uml.edu
+c. Rising Senior at UMass Lowell in course 91.61 GUI Programming I
+d. Created 7/22
+e. This is the CSS to my new index.html webpage
+*/
+
+
+
+*{background-color: #F0EAD6}
+.jumbotron{
+  background-color: #F0EAD6;
+}
+/*
+I liked this google font a lot so I downloaded it to my page and used it in my css
+*/
+h1{font-family: 'Corben';font-size: 40px;padding-left: 50px;}
+h2{font-family: 'Corben';padding-left: 50px;text-align:center;}
+h3{font-family: 'Corben';padding-left: 50px;}
+/*
+This font pairs well, with it so i added it in
+*/
+p {
+ font-family: 'Nobile', Helvetica, Arial, sans-serif;
+ font-size: 13px;
+ line-height: 30px;
+}
+
+table {
+  table-layout: fixed ;
+  width: 100% ;
+  font-family: 'Nobile', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+}
+td {
+  width: 25% ;
+}
+img {max-height: 100%; max-width: 100%}
