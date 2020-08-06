@@ -1,0 +1,188 @@
+<!--
+ File: /~landry/mult1.html  Assignment: Creating Your First Web Page
+a. Matthew Landry
+b. Matthew_Landry@student.uml.edu
+c. Rising Senior at UMass Lowell in course 91.61 GUI Programming I
+d. Created 7/27
+e. This is my first try at a page using javascript, it creates a table based on parameters input. it also has soft error checking
+</table>updated by ML on July 13th, 2020 at 9:02 AM
+-->
+
+<head>
+<title> Multiplication Table </title>
+<meta charset="utf-8">
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script type='text/javascript' src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type='text/javascript' src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+  $("form[name='tabley-boy']").validate({
+    rules: {
+      mnrows : {
+        required: true,
+        number: true,
+        min: -50,
+        max: 49
+		//le: '#mxrows'
+      },
+      mxrows: {
+        required: true,
+        number: true,
+        min: -49,
+        max: 50
+      },
+      mncols: {
+        required: true,
+        number: true,
+        min: -49,
+        max: 50
+		//le: '#mxcols'
+      },
+      mxcols: {
+        required: true,
+        number: true,
+        min: -49,
+        max: 50
+      }
+    },
+    messages : {
+      mnrows: {
+        required: "Please enter a number",
+        number: "Please enter a number",
+        min: "Your number must be between -50 and 49",
+        max: "Your number must be between -50 and 49"
+		//le: "Your minimum number for rows must be less than your maximum"
+      },
+      mxrows: {
+        required: "Please enter a number",
+        number: "Please enter a number",
+        min: "Your number must be between -49 and 50",
+        max: "Your number must be between -49 and 50"
+      },
+      mncols: {
+        required: "Please enter a number",
+        number: "Please enter a number",
+        min: "Your number must be between -50 and 49",
+        max: "Your number must be between -50 and 49"
+		//le: "Your minimum number for columns must be less than your maximum"
+      },
+      mxcols: {
+        required: "Please enter a number",
+        number: "Please enter a number",
+        min: "Your number must be between -49 and 50",
+        max: "Your number must be between -49 and 50"
+      }
+      },
+      submitHandler: function() {
+      Table();
+      return false;
+    }
+  });
+}); 
+    function Table()
+    {
+    var minrows =  parseInt(document.getElementById('mnrows').value);
+    var maxrows =  parseInt(document.getElementById('mxrows').value);
+    var mincols =  parseInt(document.getElementById('mncols').value);
+    var maxcols =  parseInt(document.getElementById('mxcols').value);
+    var output='';
+    var temp=0;
+    var i=0;
+	//this checks to see that minrows are less than maxrows, if not they are switched
+	if(minrows>maxrows)
+	{
+	temp=minrows;
+	minrows=maxrows;
+	maxrows=temp;
+	}
+	//this checks to see that minrows are less than maxrows, if not they are switched
+	if(mincols>maxcols)
+	{
+	temp=mincols;
+	mincols=maxcols;
+	maxcols=temp;
+	}
+	temp=0;
+	var j=mincols;
+    var countm=minrows;
+        output=output + "<table border='1' width='500' cellspacing='0'cellpadding='5'> ";
+
+    output = output + "<tr> <td> </td> ";
+
+  //this part creates the column numbers pre multiplication in the black background and styled
+    for(temp=mincols;temp<=maxcols;temp++)
+    {
+         output = output + "<td style='background-color:black; color:white; font-weight: bold;'> " + temp + "</td> ";
+    }
+       output = output + "</tr> ";
+
+
+       for(i=minrows;i<=maxrows;i++)
+        {
+          //this part creates the row numbers pre multiplication in the black background and styled
+             output = output + "<tr> <td style='background-color:black; color:white; font-weight: bold;'> " +countm +"</td> ";
+           countm++;
+           //this next part fills in the rows as it goes by restarting j after each while loope
+           while(j<=maxcols)
+           {
+                 output = output + "<td> " + i*j + "</td> ";
+                  j++;
+             }
+         output = output + "</tr> ";
+       j = mincols;
+           }
+
+    output = output + "</table> ";
+    document.getElementById('cooltable').innerHTML =output;
+    }
+  </script>
+</head>
+
+<body>
+<h1 style="text-align:center;"> Multiplication Table Creator!</h1>
+
+<div class="container">
+<div class="row">
+<div class="col-md-5">
+<form name="tabley-boy" class="form-horizontal">
+<div class="form-group">
+<div class="row">
+<label class="col-md-6">Minimum for rows: </label>     <div class="col-md-3">
+<input type="text" name="mnrows" id="mnrows"/></div><br/></div>
+<div class="row">
+<label class="col-md-6">Maximum for rows  </label>     <div class="col-md-3">
+<input type="text" name="mnrows" id="mxrows"/></div><br/></div>
+<div class="row">
+<label class="col-md-6">Minimum for columns  </label>     <div class="col-md-3">
+<input type="text" name="mncols" id="mncols"/></div><br/></div>
+<div class="row">
+<label class="col-md-6">Maximum for columns  </label>     <div class="col-md-3">
+<input type="text" name="mncols" id="mxcols"/></div><br/></div>
+<div class="row">
+<input name="generate" type="submit" value="Create Multiplication Table!"/>
+</div>
+</form>
+</div>
+</div>
+<div class="col-md-5">
+<div id="cooltable">
+</div>
+</div>
+
+</div>
+</div>
+<!--
+ <script>
+ //   $( document ).ready(function() {
+ //       validate();
+//      });
+  </script>
+  -->
+</body>
+</html>
