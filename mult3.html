@@ -30,7 +30,7 @@ function sub() {
   function slidez() {
   $("#slider_min_row").slider({
     min: -50,
-    max: 49,
+    max: 50,
     slide: function(event, ui) {
       $("#mnrows").val(ui.value);
 	  sub();
@@ -42,7 +42,7 @@ function sub() {
   });
 
   $("#slider_max_row").slider({
-    min: -49,
+    min: -50,
     max: 50,
     slide: function(event, ui) {
       $("#mxrows").val(ui.value);
@@ -56,7 +56,7 @@ function sub() {
 
   $("#slider_min_col").slider({
     min: -50,
-    max: 49,
+    max: 50,
     slide: function(event, ui) {
       $("#mncols").val(ui.value);
       sub();
@@ -68,7 +68,7 @@ function sub() {
   });
 
   $("#slider_max_col").slider({
-    min: -49,
+    min: -50,
     max: 50,
     slide: function(event, ui) {
       $("#mxcols").val(ui.value);
@@ -87,26 +87,26 @@ function val(){
         required: true,
         number: true,
         min: -50,
-        max: 49
+        max: 50
 		//le: '#mxrows'
       },
       mxrows: {
         required: true,
         number: true,
-        min: -49,
+        min: -50,
         max: 50
       },
       mncols: {
         required: true,
         number: true,
-        min: -49,
+        min: -50,
         max: 50
 		//le: '#mxcols'
       },
       mxcols: {
         required: true,
         number: true,
-        min: -49,
+        min: -50,
         max: 50
       }
     },
@@ -114,28 +114,28 @@ function val(){
       mnrows: {
         required: "Please enter a number",
         number: "Please enter a number",
-        min: "Your number must be between -50 and 49",
-        max: "Your number must be between -50 and 49"
+        min: "Your number must be between -50 and 50",
+        max: "Your number must be between -50 and 50"
 		//le: "Your minimum number for rows must be less than your maximum"
       },
       mxrows: {
         required: "Please enter a number",
         number: "Please enter a number",
-        min: "Your number must be between -49 and 50",
-        max: "Your number must be between -49 and 50"
+        min: "Your number must be between -50 and 50",
+        max: "Your number must be between -50 and 50"
       },
       mncols: {
         required: "Please enter a number",
         number: "Please enter a number",
-        min: "Your number must be between -50 and 49",
-        max: "Your number must be between -50 and 49"
+        min: "Your number must be between -50 and 50",
+        max: "Your number must be between -50 and 50"
 		//le: "Your minimum number for columns must be less than your maximum"
       },
       mxcols: {
         required: "Please enter a number",
         number: "Please enter a number",
-        min: "Your number must be between -49 and 50",
-        max: "Your number must be between -49 and 50"
+        min: "Your number must be between -50 and 50",
+        max: "Your number must be between -50 and 50"
       }
       },
       submitHandler: function() {
@@ -237,27 +237,7 @@ function val(){
   <div id="slider_max_col"></div>
 
 </form>
-<!--
-<div class="form-group">
-<div class="row">
-<label class="col-md-6">Minimum for rows: </label>     <div class="col-md-3">
-<input type="text" name="mnrows" id="mnrows"/></div><br/></div>
-<div class="row">
-<label class="col-md-6">Maximum for rows  </label>     <div class="col-md-3">
-<input type="text" name="mxrows" id="mxrows"/></div><br/></div>
-<div class="row">
-<label class="col-md-6">Minimum for columns  </label>     <div class="col-md-3">
-<input type="text" name="mncols" id="mncols"/></div><br/></div>
-<div class="row">
-<label class="col-md-6">Maximum for columns  </label>     <div class="col-md-3">
-<input type="text" name="mxcols" id="mxcols"/></div><br/></div>
-<div class="row">
-<input name="generate" type="submit" value="Create Multiplication Table!"/>
 </div>
-</form>
-</div>
--->
-
 </div>
 <div class="col-md-5">
 <div id="cooltable">
