@@ -16,7 +16,7 @@ e. I am adding a slider to my inputs for my multiplication table
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<link rel="stylesheet" href="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dark-hive/jquery-ui.min.css">   
    <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
   <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.js"></script>
   <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -33,12 +33,12 @@ function sub() {
     max: 49,
     slide: function(event, ui) {
       $("#mnrows").val(ui.value);
-      sub();
+	  sub();
     }
   });
   $("#mnrows").on("keyup", function() {
     $("#slider_min_row").slider("value", this.value);
-    sub();
+	sub();
   });
 
   $("#slider_max_row").slider({
@@ -46,12 +46,12 @@ function sub() {
     max: 50,
     slide: function(event, ui) {
       $("#mxrows").val(ui.value);
-      sub();
+	  sub();
     }
   });
   $("#mxrows").on("keyup", function() {
     $("#slider_max_row").slider("value", this.value);
-    sub();
+	sub();
   });
 
   $("#slider_min_col").slider({
@@ -64,7 +64,7 @@ function sub() {
   });
   $("mnrows").on("keyup", function() {
     $("#slider_min_col").slider("value", this.value);
-    sub();
+	sub();
   });
 
   $("#slider_max_col").slider({
@@ -72,12 +72,12 @@ function sub() {
     max: 50,
     slide: function(event, ui) {
       $("#mxcols").val(ui.value);
-      sub();  // Call the auto submit function on slide.
+      sub();
     }
   });
   $("#mxcols").on("keyup", function() {
     $("#slider_max_col").slider("value", this.value);
-    sub();
+	sub();
   });
 }
 function val(){
@@ -221,7 +221,7 @@ function val(){
   
   <div class="row">
   <label for="mxrows">Maximum for rows:</label>
-  <input type="number" id="mxrows" value="0" required>
+  <input type="number" id="mxrows" value="10" required>
   <div id="slider_max_row"></div>
   </div>
   
@@ -233,7 +233,7 @@ function val(){
   
   <div class="row">
   <label for="mxcols">Maximum for columns:</label>
-  <input type="number" id="mxcols" value="0" required>
+  <input type="number" id="mxcols" value="10" required>
   <div id="slider_max_col"></div>
 
 </form>
