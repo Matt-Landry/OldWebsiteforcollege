@@ -1,0 +1,285 @@
+ <!--
+ File: /~landry/mult1.html  Assignment: Scrabble
+a. Matthew Landry
+b. Matthew_Landry@student.uml.edu
+c. Rising Senior at UMass Lowell in course 91.61 GUI Programming I
+d. Created 8/11
+e. This is my scrabble page, it is a lot to deal with, read the readme to see everything wrong with him lmao
+-->
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<script>
+//friend of mine that took the class last year explained to me that this is the easiest way to set up your arrays
+var pieces = [
+    {"letter":"A", "value":  1,  "amount":  9,  "remaining":  9},
+    {"letter":"B", "value":  3,  "amount":  2,  "remaining":  2},
+    {"letter":"C", "value":  3,  "amount":  2,  "remaining":  2},
+    {"letter":"D", "value":  2,  "amount":  4,  "remaining":  4},
+    {"letter":"E", "value":  1,  "amount": 12,  "remaining": 12},
+    {"letter":"F", "value":  4,  "amount":  2,  "remaining":  2},
+    {"letter":"G", "value":  2,  "amount":  3,  "remaining":  3},
+    {"letter":"H", "value":  4,  "amount":  2,  "remaining":  2},
+    {"letter":"I", "value":  1,  "amount":  9,  "remaining":  9},
+    {"letter":"J", "value":  8,  "amount":  1,  "remaining":  1},
+    {"letter":"K", "value":  5,  "amount":  1,  "remaining":  1},
+    {"letter":"L", "value":  1,  "amount":  4,  "remaining":  4},
+    {"letter":"M", "value":  3,  "amount":  2,  "remaining":  2},
+    {"letter":"N", "value":  1,  "amount":  6,  "remaining":  6},
+    {"letter":"O", "value":  1,  "amount":  8,  "remaining":  8},
+    {"letter":"P", "value":  3,  "amount":  2,  "remaining":  2},
+    {"letter":"Q", "value": 10,  "amount":  1,  "remaining":  1},
+    {"letter":"R", "value":  1,  "amount":  6,  "remaining":  6},
+    {"letter":"S", "value":  1,  "amount":  4,  "remaining":  4},
+    {"letter":"T", "value":  1,  "amount":  6,  "remaining":  6},
+    {"letter":"U", "value":  1,  "amount":  4,  "remaining":  4},
+    {"letter":"V", "value":  4,  "amount":  2,  "remaining":  2},
+    {"letter":"W", "value":  4,  "amount":  2,  "remaining":  2},
+    {"letter":"X", "value":  8,  "amount":  1,  "remaining":  1},
+    {"letter":"Y", "value":  4,  "amount":  2,  "remaining":  2},
+    {"letter":"Z", "value": 10,  "amount":  1,  "remaining":  1},
+    {"letter":"_", "value":  0,  "amount":  0,  "remaining":  0}
+];
+
+var _tiles = [
+  {"id": "piece0", "letter": "A"},
+  {"id": "piece1", "letter": "B"},
+  {"id": "piece2", "letter": "C"},
+  {"id": "piece3", "letter": "D"},
+  {"id": "piece4", "letter": "E"},
+  {"id": "piece5", "letter": "F"},
+  {"id": "piece6", "letter": "G"}
+]
+
+var _board = [
+  {"id": "drop0",  "tile": "pieceX"},
+  {"id": "drop1",  "tile": "pieceX"},
+  {"id": "drop2",  "tile": "pieceX"},
+  {"id": "drop3",  "tile": "pieceX"},
+  {"id": "drop4",  "tile": "pieceX"},
+  {"id": "drop5",  "tile": "pieceX"},
+  {"id": "drop6",  "tile": "pieceX"},
+  {"id": "drop7",  "tile": "pieceX"},
+]
+//checks if in the second or sixth position
+function checkdub() {
+  if(_board[1].tile != "pieceX") {
+    return 1;
+  }
+  if(_board[5].tile != "pieceX") {
+    return 1;
+  }
+  return 0;
+}
+
+//I cannot get this function to work, idealy what I would like it to do is look at the board
+//find out what letters are there, get their scores and then add them up, I am not sure what my issue is or why it is not working
+//it accounts for a double letter, so like please dont take off points for that but like not fully, idealy it would do that but it clearly is not working
+//this connects to my calc function which is also the issue, not really sure where though
+function score(given_id) {
+  var letter = find_letter(given_id);
+  var score = 0;
+  for(var i = 0; i < 27; i++) {
+    var obj = pieces[i];
+    if(obj.letter == letter) {
+      score = obj.value;
+      score += (score * DUB(given_id));
+	  pieces[i].remaining=-1;
+      return score;
+    }
+  }
+
+  return -1;
+}
+//checks if it is a dub zone, if it is it dubs B)
+function DUB(given_id) {
+  var dropID = find_tile_pos(given_id);
+  if(dropID == "drop1" || dropID == "drop6") {
+    return 1;
+  }
+  return 0;
+}
+//these are small utility functions so that the program knows where it is
+function find_board_pos(given_id) {
+  for(var i = 0; i < 7; i++){
+    if(_board[i].id == given_id) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function find_letter(given_id) {
+  for(var i = 0; i < 7; i++) {
+    if(_tiles[i].id == given_id) {
+      return _tiles[i].letter;
+    }
+  }
+  return -1;
+}
+
+function find_tile_pos(given_id) {
+  for(var i = 0; i < 7; i++){
+    if(_board[i].tile == given_id) {
+      return _board[i].id;
+    }
+  }
+  return -1;
+}
+//this refreshes and brings in tiles, it should be deleting the old ones but currently it does not which is infuriating
+function refresh() {
+  _board = [];
+  var base_url = "tiles/Scrabble_Tile_";
+  var random_num = 1;
+  var piece = "<img class='pieces' id='piece" + i + "' src='" + base_url + random_num + ".jpg" + "' width='50' height='50'></img>";
+  var piece_ID = "";
+  var what_piece = "";
+  for(var i = 0; i < 7; i++) {
+    var loop = true;
+    while(loop == true){
+      random_num = getRandomInt(0, 26);
+      if(pieces[random_num].remaining != 0) {
+        loop = false;
+        pieces[random_num].remaining--;
+      }
+    }
+    piece = "<img class='pieces' id='piece" + i + "' src='" + base_url + pieces[random_num].letter + ".jpg" + "'></img>";
+    piece_ID = "#piece" + i;
+    _tiles[i].letter = pieces[random_num].letter;
+    var pos = $("#the_rack").position();
+    var img_left = -165 + (50 * i);
+    var img_top = -130;
+    $("#rack").append(piece);
+    $(piece_ID).css("left", img_left).css("top", img_top).css("position", "relative");
+    $(piece_ID).draggable();
+  }
+}
+
+//I do not understand why this is not working as stated above
+function calc() {
+  var word = "";
+  var score = 0;
+
+  for(var i = 0; i < 7; i++) {
+    if(_board[i].tile != "pieceX") {
+      word += find_letter(_board[i].tile);
+      score += score(_board[i].tile);
+    }
+  }
+  score += (score * checkdub());
+  $("#score").html(score);
+  if(word != "") {
+    $("#word").html(word);
+    return;
+  }
+  $("#word").html("____");
+}
+
+//this is what sets up the space for my program to have the tiles dropped and stuck to it
+function dropspace() {
+  var drop = "<img class='droppable' id='drop" + i + "' src= https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Blank5x4.svg/120px-Blank5x4.svg.png'" + "'></img>";
+  var drop_ID = "#drop" + i;
+  for(var i = 0; i < 7; i++) {
+    drop = "<img class='droppable' id='drop" + i + "' src= https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Blank5x4.svg/120px-Blank5x4.svg.png'"+ "'></img>";
+    drop_ID = "#drop" + i;
+    var pos = $("#the_board").position();
+    var img_left = 0;
+    var img_top = -125;
+    $("#board").append(drop);
+    $(drop_ID).css("left", img_left).css("top", img_top).css("position", "relative");
+    $(drop_ID).droppable({
+      drop: function(event, ui) {
+        var draggableID = ui.draggable.attr("id");
+        var droppableID = $(this).attr("id");
+        _board[find_board_pos(droppableID)].tile = draggableID;
+        calc();
+      },
+      out: function(event, ui) {
+        var draggableID = ui.draggable.attr("id");
+        var droppableID = $(this).attr("id");
+        _board[find_board_pos(droppableID)].tile = "pieceX";
+        calc();
+      }
+    });
+  }
+}
+//simple thing i use to get random scrabble pieces
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+</script>
+<style type=text/css>
+.board {
+  height: 125px;
+  width: auto;
+}
+.rack {
+  height: 125px;
+  width: 1200px;
+}
+.pieces {
+  height: 100px;
+  width: 100px;
+}
+.droppable {
+  height: 125px;
+  width: 118px;
+}
+</style>
+  <meta charset="utf-8">
+  <title>Scrabble</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dark-hive/jquery-ui.min.css">
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.js"></script>
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div class="row">
+        <h1 class="name">
+          <span>SCRABBLE</span>
+        </h1>
+		<div>
+
+    <br>
+    <div class="row">
+	   <div class="col-md-12">
+        <img class="board" id="the_board" src="tiles/sboard.png">
+        <div id="board"></div>
+		</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        Word <span id="word">____</span>
+        Score: <span id="score">0</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <button onclick="calc();">Submit Word</button>
+        <button onclick="refresh();">Reset Tiles</button>
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-md-12">
+        <img class="rack" id="the_rack" src="tiles/holder.jpeg">
+        <div id="rack"></div>
+      </div>
+    </div>
+<script>
+    $( document ).ready(function() {
+        refresh();
+        dropspace();
+    });
+  </script>
+</body>
+</html>
